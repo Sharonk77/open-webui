@@ -8,15 +8,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4  
-        
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
       - name: Install dependencies
-        run: npm install
+        run: npm ci 
 
-      - name: Install Vitest
-        run: npm install -g vitest    
-
-      - name: run tests
-        run: |
-          echo "Pull Request triggered!"
-          echo "Running tests..."
-          vitest --passWithNoTest  
+      - name: Run frontend tests
+        run: npm run test:frontend
