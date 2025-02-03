@@ -56,7 +56,6 @@ pipeline {
                     withCredentials([string(credentialsId: 'AWS_ACCOUNT_ID', variable: 'AWS_ACCOUNT_ID'),
                     ]) {
                         sh '''
-
                             echo "Current directory:" $(pwd)
                             echo "Applying deployment files..."
                             kubectl apply -f open-webui-deployment.yaml
