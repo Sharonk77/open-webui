@@ -6,6 +6,10 @@ pipeline {
         IMAGE_TAG = ${env.GIT_COMMIT_ID}
     }
 
+    triggers {
+        githubPush()
+    }
+
     stages {
 
         stage('Clean Workspace') {
