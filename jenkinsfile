@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = "open-webui"
-        IMAGE_TAG = "latest"
+        IMAGE_TAG = ${env.GIT_COMMIT_ID}
     }
 
     stages {
@@ -22,6 +22,16 @@ pipeline {
             }
         }
 
+        stage('Get Commit ID') {
+            steps {
+                script {
+                    def commitId = sh(script: "git rev-parse HEAD", returnStdout: true).trim()
+                    echo "Commit ID: ${commitId}"
+                    env.GIT_COMMIT_ID = commitId
+                }
+            }
+        }
+
 
         stage('Build Docker Image') {
             steps {
@@ -30,7 +40,6 @@ pipeline {
                     }
                 }
             }
-
 
         stage('Push to Registry') {
             steps {
@@ -72,6 +81,7 @@ pipeline {
         }
     }
 
+
     post {
         success {
             echo "Success"
@@ -81,3 +91,4 @@ pipeline {
         }
     }
 }
+
