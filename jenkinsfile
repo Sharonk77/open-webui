@@ -22,17 +22,6 @@ pipeline {
             }
         }
 
-        stage('Get Commit ID') {
-            steps {
-                script {
-                    def commitId = sh(script: "git rev-parse HEAD", returnStdout: true).trim()
-                    echo "Commit ID: ${commitId}"
-                    env.GIT_COMMIT_ID = commitId
-                }
-            }
-        }
-
-
         stage('Build Docker Image') {
             steps {
                 script {
